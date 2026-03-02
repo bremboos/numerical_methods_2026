@@ -98,23 +98,22 @@ grad_full = np.gradient(y_dense_full, x_dense) * 100
 max_grad = np.max(grad_full)
 
 fig1, ax1 = plt.subplots(figsize=(10, 6))
-ax1.plot(distances, elevations, color='#2ca02c', marker='o', linestyle='-', linewidth=2, label='GPS точки')
-ax1.set_title('Профіль висоти маршруту: Заросляк — Говерла', fontweight='bold', fontsize=14)
+ax1.plot(distances, elevations, color='#e6b400', marker='o', linestyle='-', linewidth=2, label='GPS точки')
+ax1.set_title('Профіль висоти маршруту', fontweight='bold', fontsize=14)
 ax1.set_xlabel('Кумулятивна відстань (м)', fontsize=12)
 ax1.set_ylabel('Висота (м)', fontsize=12)
 ax1.grid(True, linestyle='--', alpha=0.7)
 
-
 textstr = f"Дистанція: {distances[-1] / 1000:.1f} км\nНабір висоти: {total_ascent:.0f} м\nМакс. ухил: {max_grad:.1f}%"
-props = dict(boxstyle='round', facecolor='#f0f9e8', alpha=0.9, edgecolor='green')
+props = dict(boxstyle='round', facecolor='#f0f9e8', alpha=0.9, edgecolor='#e6b400')
 ax1.text(0.03, 0.95, textstr, transform=ax1.transAxes, fontsize=11, verticalalignment='top', bbox=props)
 ax1.legend(loc='lower right')
 
 fig2, ax2 = plt.subplots(figsize=(10, 6))
 ax2.set_title('Вплив кількості вузлів на точність сплайна', fontweight='bold', fontsize=14)
-ax2.plot(x_dense, y_dense_full, color='#333333', linestyle='-', linewidth=2.5, label='21 вузол (Еталон)')
+ax2.plot(x_dense, y_dense_full, color='#333333', linestyle='-', linewidth=2.5, label='21 вузол')
 
-splines_data = {} 
+splines_data = {}
 styles = {10: ('r--', 1.5), 15: ('b-.', 1.5), 20: ('g:', 2.5)}
 
 for n_nodes in [10, 15, 20]:
