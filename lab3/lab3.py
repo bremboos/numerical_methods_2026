@@ -79,7 +79,7 @@ x_future = np.array([25, 26, 27])
 y_future = polynomial(x_future, opt_coef)
 
 print(f"\nОптимальний ступінь: {optimal_m}")
-print(f"Прогноз на 25-27 місяці: {np.round(y_future, 2)}") 
+print(f"Прогноз на 25-27 місяці: {np.round(y_future, 2)}")
 
 # Апроксимація
 plt.figure(1, figsize=(10, 6))
@@ -96,5 +96,20 @@ plt.bar(x_data, errors, color='orange', alpha=0.7, label='|f(x) - phi(x)|')
 plt.plot(x_data, errors, 'r-o', markersize=4)
 plt.title('Табулювання та графік похибки')
 plt.xlabel('Місяць'); plt.ylabel('Похибка'); plt.legend(); plt.grid(True)
+
+#рафік залежності дисперсії від ступеня m
+plt.figure(3, figsize=(10, 6))
+degrees = list(range(1, max_degree + 1))
+plt.plot(degrees, variances, 'g-o', linewidth=2, label='Дисперсія $\delta$')
+
+# Позначення оптимальної точки
+plt.scatter(optimal_m, variances[optimal_m-1], color='red', s=100, zorder=5, label=f'Оптимум (m={optimal_m})')в
+
+plt.title('Залежність дисперсії від ступеня многочлена m')
+plt.xlabel('Ступінь многочлена (m)')
+plt.ylabel('Дисперсія ($\delta$)')
+plt.xticks(degrees)
+plt.grid(True, linestyle='--', alpha=0.7)
+plt.legend()
 
 plt.show()
