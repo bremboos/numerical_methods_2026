@@ -53,7 +53,7 @@ def polynomial(x, coef):
 
 def calculate_variance(y_true, y_approx):
     n = len(y_true)
-    return np.sqrt(np.sum((y_approx - y_true)**2) / n) # [cite: 30]
+    return np.sqrt(np.sum((y_approx - y_true)**2) / n)
 
 x_data, y_data = read_data('temp_data.csv')
 max_degree = 10
@@ -79,9 +79,9 @@ x_future = np.array([25, 26, 27])
 y_future = polynomial(x_future, opt_coef)
 
 print(f"\nОптимальний ступінь: {optimal_m}")
-print(f"Прогноз на 25-27 місяці: {np.round(y_future, 2)}") # [cite: 192]
+print(f"Прогноз на 25-27 місяці: {np.round(y_future, 2)}")
 
-# Вікно 1: Апроксимація
+# Апроксимація
 plt.figure(1, figsize=(10, 6))
 plt.scatter(x_data, y_data, color='red', label='Дані')
 x_smooth = np.linspace(1, 24, 200)
@@ -89,7 +89,7 @@ plt.plot(x_smooth, polynomial(x_smooth, opt_coef), 'b-', label=f'МНК (m={opti
 plt.title('Графік апроксимації фактичних даних')
 plt.xlabel('Місяць'); plt.ylabel('Температура'); plt.legend(); plt.grid(True)
 
-# Вікно 2: Похибка
+# Похибка
 plt.figure(2, figsize=(10, 6))
 errors = np.abs(y_data - polynomial(x_data, opt_coef))
 plt.bar(x_data, errors, color='orange', alpha=0.7, label='|f(x) - phi(x)|')
@@ -97,4 +97,18 @@ plt.plot(x_data, errors, 'r-o', markersize=4)
 plt.title('Табулювання та графік похибки')
 plt.xlabel('Місяць'); plt.ylabel('Похибка'); plt.legend(); plt.grid(True)
 
+#Графік залежності дисперсії від ступеня m
+plt.figure(3, figsize=(10, 6))
+degrees = list(range(1, max_degree + 1))
+
+plt.plot(degrees, variances, 'g-o', linewidth=2, label=r'Дисперсія $\delta$')
+
+plt.scatter(optimal_m, variances[optimal_m-1], color='red', s=100, zorder=5, label=f'Оптимум (m={optimal_m})')
+
+plt.title('Залежність дисперсії від ступеня многочлена m')
+plt.xlabel('Ступінь многочлена (m)')
+plt.ylabel('Дисперсія ($\delta$)')
+plt.xticks(degrees)
+plt.grid(True, linestyle='--', alpha=0.7)
+plt.legend()
 plt.show()
